@@ -16,7 +16,7 @@ body {
 body {
     margin: 0;
     font-family: "Lato", sans-serif;
-    padding: 10px 20px;
+    padding: 10px 0px;
     overflow: hidden;
     background-color: var(--color-Green100);
     width: 100%;
@@ -25,6 +25,7 @@ body {
 
 header {
     height: 10%;
+    border-bottom: 1px solid var(--color-White100);
 }
 
 .header-container {
@@ -32,12 +33,14 @@ header {
     align-items: center;
     justify-content: space-between;
     height: 100%;
+    padding: 0 20px;
 }
 
-.menu-toggle {
+.toggle-button {
     border: none;
     background-color: transparent;
     cursor: pointer;
+    padding: 0px;
 }
 
 .header-right ul {
@@ -53,12 +56,6 @@ header {
     height: 5rem;
 }
 
-.header-right button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-}
-
 .hide {
     display: none;
 }
@@ -69,7 +66,7 @@ header {
 
 .sidebar {
     position: fixed;
-    top: 10%;
+    top: 11%;
     left: 0;
     width: 250px;
     height: 100%;
@@ -89,7 +86,8 @@ header {
 .main-wrapper {
     margin-left: 0;
     transition: margin-left 0.3s ease;
-    min-height: 100vh;
+    height: 90%;
+    padding: 0 20px;
 }
 
 body.sidebar-open .main-wrapper {
