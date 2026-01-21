@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/script.js" defer></script>
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,9 +13,42 @@
     />
     <title>The Document Object Model</title>
   </head>
-  <body>
+  <body id="body">
     <header>
-      <div class="header-container"></div>
+      <div class="header-container">
+        <section class="header-left">
+          <button
+            id="toggleMenuButton"
+            aria-label="toggle menu"
+            class="menu-toggle"
+          >
+            <img src="/images/icon/hamburger-menu.svg" alt="hamburger menu" />
+          </button>
+        </section>
+        <section class="header-right">
+          <ul>
+            <li>
+              <button aria-label="Write a story" id="addNewStoryButton">
+                <img src="/images/icon/write-100.png" alt="write icon" />
+              </button>
+            </li>
+          </ul>
+        </section>
+      </div>
     </header>
+    <main class="main-wrapper">
+      <section class="story-form hide" id="storyFormContainer">
+        <form>
+          <input type="text" required />
+        </form>
+      </section>
+      <section class="story-list show" id="storyListContainer">
+        <div>test</div>
+      </section>
+    </main>
+    <aside class="sidebar" id="sidebar">
+      <h2>About Me</h2>
+      <p>Hi! I'm Saba, a web developer based in Charlotte.</p>
+    </aside>
   </body>
 </html>
