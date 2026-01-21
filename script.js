@@ -7,11 +7,8 @@ const body = document.getElementById("body");
 
 // Toggle sidebar function
 function toggleSidebar() {
-  const isOpen = sidebar.classList.toggle("active");
+  sidebar.classList.toggle("active");
   body.classList.toggle("sidebar-open");
-
-  // Update ARIA attribute
-  toggleMenuButton.setAttribute("aria-expanded", isOpen);
 }
 
 const addNEwStory = () => {
