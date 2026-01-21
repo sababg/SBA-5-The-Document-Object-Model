@@ -42,8 +42,34 @@
     </header>
     <main class="main-wrapper">
       <section class="story-form hide" id="storyFormContainer">
-        <form>
-          <input type="text" required />
+        <form id="storyForm" class="">
+          <div class="form-group">
+            <label for="storyTitle">Title</label>
+            <input type="text" id="storyTitle" required placeholder="Title" />
+            <span class="error-message" id="storyTitleError"></span>
+          </div>
+          <div class="form-group">
+            <label for="storyText">Tell your story</label>
+            <textarea
+              id="storyText"
+              required
+              placeholder="Tell your story"
+              rows="10"
+              cols="50"
+            ></textarea>
+          </div>
+          <div class="form-button-container">
+            <button type="submit" id="storyFormAddButton" class="add-button">
+              Add
+            </button>
+            <button
+              type="button"
+              id="storyFormCancelButton"
+              class="cancel-button"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </section>
       <section class="story-list show" id="storyListContainer">

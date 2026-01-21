@@ -2,6 +2,9 @@ const toggleMenuButton = document.getElementById("toggleMenuButton");
 const addNewStoryButton = document.getElementById("addNewStoryButton");
 const storyFormContainer = document.getElementById("storyFormContainer");
 const storyListContainer = document.getElementById("storyListContainer");
+const storyTitleInput = document.getElementById("storyTitle");
+const storyTitleError = document.getElementById("storyTitleError");
+const storyFormCancelButton = document.getElementById("storyFormCancelButton");
 const sidebar = document.getElementById("sidebar");
 const body = document.getElementById("body");
 
@@ -23,6 +26,9 @@ const addNEwStory = () => {
 
 // Event listener for new story button
 addNewStoryButton.addEventListener("click", addNEwStory);
+
+// Event listener for new story form cancel button
+storyFormCancelButton.addEventListener("click", addNEwStory);
 
 // Event listener for toggle button
 toggleMenuButton.addEventListener("click", toggleSidebar);
@@ -54,4 +60,26 @@ sidebarLinks.forEach((link) => {
       toggleSidebar();
     }
   });
+});
+
+//Real-time validation
+const validateStoryTitle = (input) => {
+  input.classList.add("error");
+
+  if (input.validity.valueMissing) {
+    storyTitleError.textContent = "This field is required.";
+    return false;
+  } else if (input.value.length < 3) {
+    storyTitleError.textContent = "Title must be at least 3 characters long.";
+    return false;
+  } else {
+    storyTitleError.textContent = "";
+    input.classList.remove("error");
+    return true;
+  }
+};
+
+storyTitleInput.addEventListener("input", (e) => {
+  const input = e.target;
+  validateStoryTitle(input);
 });
