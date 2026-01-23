@@ -57,6 +57,7 @@
               rows="10"
               cols="50"
             ></textarea>
+            <span class="error-message" id="storyTextError"></span>
           </div>
           <div class="form-button-container">
             <button type="submit" id="storyFormAddButton" class="add-button">
@@ -73,7 +74,10 @@
         </form>
       </section>
       <section class="story-list show" id="storyListContainer">
-        <div>test</div>
+        <div class="list-container">
+          <h2>Stories...</h2>
+          <ul id="storyUltContainer"></ul>
+        </div>
       </section>
     </main>
     <aside class="sidebar" id="sidebar">
