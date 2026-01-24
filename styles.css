@@ -1,4 +1,5 @@
 :root {
+    --color-Black100: #00000098;
     --color-Black: #000;
     --color-White: #fff;
     --color-White100: #ffffff6a;
@@ -47,6 +48,15 @@ header {
     background-color: transparent;
     cursor: pointer;
     padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 18px;
+}
+
+.toggle-button:hover {
+    color: var(--color-Black100);
 }
 
 .header-right ul {
@@ -153,7 +163,8 @@ textarea {
     border-color: var(--color-Red400);
 }
 
-input:focus {
+input:focus,
+textarea:focus {
     border: 2px solid var(--color-Green400);
 }
 
@@ -274,7 +285,7 @@ input:focus {
     box-sizing: border-box;
     border-bottom: 1px solid var(--color-Green100);
     padding-bottom: 10px;
-    box-shadow: 0 4px 6px -2px rgba(26, 219, 0, 0.5);
+    box-shadow: 0 7px 7px -7px rgba(26, 219, 0, 0.5);
 }
 
 .article-title {
@@ -300,6 +311,11 @@ input:focus {
 .article-more-option:hover {
     scale: 1.25;
     background-color: var(--color-Green100);
+}
+
+.article-timestamp {
+    font-size: 10px;
+    color: var(--color-Black100);
 }
 
 .menu-container {

@@ -100,7 +100,7 @@ storyTitleInput.addEventListener("input", (e) => {
   validateStoryTitle(input);
 });
 
-//Real-time validation for title input
+//Real-time validation for story content
 const validateStoryText = (input) => {
   input.classList.add("error");
 
@@ -144,7 +144,7 @@ storyForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   if (finalValidation.find((item) => !item.isValid())) {
-    finalValidation.find((item) => !item.isValid()).storyTitleInput.focus();
+    finalValidation.find((item) => !item.isValid()).name.focus();
     return;
   }
 
@@ -222,6 +222,11 @@ const createStoryRow = (element) => {
   articleMoreOption.className = "article-more-option";
   articleMoreOption.src = "/images/icon/more-vertical.svg";
 
+  // Show time
+  const articleTimestamp = document.createElement("small");
+  articleTimestamp.className = "article-timestamp";
+  articleTimestamp.textContent = new Date(element.id).toLocaleDateString();
+
   // Create dropdown menu
   const dropdownMenu = document.createElement("div");
   dropdownMenu.className = "dropdown-menu hide";
@@ -269,7 +274,9 @@ const createStoryRow = (element) => {
   menuContainer.appendChild(dropdownMenu);
   listArticleText.appendChild(articleTitle);
   listArticleText.appendChild(articleText);
+  listArticleText.appendChild(articleTimestamp);
   listArticle.appendChild(listArticleText);
+
   listArticle.appendChild(menuContainer);
   list.appendChild(listArticle);
   storyUltContainer.appendChild(list);
