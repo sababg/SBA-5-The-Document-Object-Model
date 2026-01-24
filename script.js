@@ -21,6 +21,15 @@ function toggleSidebar() {
   body.classList.toggle("sidebar-open");
 }
 
+// Load saved data
+window.addEventListener("load", () => {
+  if (localStorage.getItem("posts")) {
+    storyList = JSON.parse(localStorage.getItem("posts"));
+    renderList(storyList);
+  }
+});
+
+// Show or hide the story list and form
 const addNEwStory = () => {
   const isFormHidden = storyFormContainer.classList.contains("hide");
 
@@ -170,14 +179,12 @@ storyForm.addEventListener("submit", (event) => {
   }
   renderList(storyList);
   addNEwStory();
-  // try {
-  //   localStorage.setItem("username", username.value);
-  // } catch (error) {
-  //   console.warn("localStorage unavailable:", error);
-  // }
   storyForm.reset();
+
+  addToLocalStorage();
 });
 
+// Show stories in list
 const renderList = (storyList) => {
   storyUltContainer.textContent = "";
   storyList.forEach((element) => {
@@ -237,9 +244,9 @@ const createStoryRow = (element) => {
   deleteOption.className = "menu-item";
   deleteOption.textContent = "Delete";
   deleteOption.addEventListener("click", () => {
-    // removeItem(element);
-    console.log("Delete clicked for:", element.title);
+    storyTitleInput.dataset.originalId = element.id;
     dropdownMenu.classList.add("hide");
+    removeItem();
   });
 
   dropdownMenu.appendChild(editOption);
@@ -288,6 +295,24 @@ document.addEventListener("keydown", (e) => {
 
 // Delete story
 
-// const removeItem=(element)=>{
-// cont
-// }
+const removeItem = () => {
+  const index = +storyTitleInput.dataset.originalId;
+
+  if (index >= 0) {
+    storyList.splice(
+      storyList.findIndex((id) => id.id === index),
+      1,
+    );
+    addToLocalStorage();
+    renderList(storyList);
+  }
+};
+
+// Add to localStorage
+const addToLocalStorage = () => {
+  try {
+    localStorage.setItem("posts", JSON.stringify(storyList));
+  } catch (error) {
+    console.warn("localStorage unavailable:", error);
+  }
+};
