@@ -2,7 +2,8 @@
     --color-Black: #000;
     --color-White: #fff;
     --color-White100: #ffffff6a;
-    --color-Green100: #1adb0026;
+    --color-Green50: rgba(26, 219, 0, 0.054);
+    --color-Green100: rgba(26, 219, 0, 0.149);
     --color-Green200: rgba(26, 219, 0, 0.101);
     --color-Green300: rgba(26, 219, 0, 0.237);
     --color-Green400: rgba(26, 219, 0, 0.7);
@@ -260,6 +261,13 @@ input:focus {
     box-shadow: none;
 }
 
+.story-list-article {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+}
+
 .story-li {
     width: 100%;
     justify-content: center;
@@ -279,4 +287,62 @@ input:focus {
     font-size: 14px;
     font-weight: 400;
     word-break: break-all;
+}
+
+.article-more-option {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    border-radius: 4px;
+}
+
+.article-more-option:hover {
+    scale: 1.25;
+    background-color: var(--color-Green100);
+}
+
+.menu-container {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: var(--color-White);
+    border: 1px solid var(--color-Red100);
+    border-radius: 4px;
+    box-shadow: 0 3px 8px var(--color-Green100);
+    width: 120px;
+    z-index: 1000;
+    margin-top: 4px;
+}
+
+.dropdown-menu.hide {
+    display: none;
+}
+
+.menu-item {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+    background-color: var(--color-Green50);
+}
+
+.menu-item:first-child {
+    border-radius: 4px 4px 0 0;
+}
+
+.menu-item:last-child {
+    border-radius: 0 0 4px 4px;
 }

@@ -9,6 +9,7 @@ const storyTextError = document.getElementById("storyTextError");
 const storyForm = document.getElementById("storyForm");
 const storyUltContainer = document.getElementById("storyUltContainer");
 const storyFormCancelButton = document.getElementById("storyFormCancelButton");
+const storyFormAddButton = document.getElementById("storyFormAddButton");
 const sidebar = document.getElementById("sidebar");
 const body = document.getElementById("body");
 
@@ -137,11 +138,36 @@ storyForm.addEventListener("submit", (event) => {
     finalValidation.find((item) => !item.isValid()).storyTitleInput.focus();
     return;
   }
-  const story = {
-    title: storyTitleInput.value,
-    story: storyTextTextarea.value,
-  };
-  storyList.push(story);
+
+  // Check user is editing or adding
+  switch (storyFormAddButton.textContent.trim()) {
+    case "Add":
+      {
+        const story = {
+          id: Date.now(),
+          title: storyTitleInput.value,
+          story: storyTextTextarea.value,
+        };
+        storyList.push(story);
+      }
+      break;
+    case "Edit":
+      {
+        const index = +storyTitleInput.dataset.originalId;
+        if (index >= 0) {
+          storyList[storyList.findIndex((id) => id.id === index)] = {
+            id: index,
+            title: storyTitleInput.value,
+            story: storyTextTextarea.value,
+          };
+        }
+        storyFormAddButton.textContent = "Add";
+      }
+      break;
+    default:
+      console.warn("Unexpected button text:", storyFormAddButton.textContent);
+      break;
+  }
   renderList(storyList);
   addNEwStory();
   // try {
@@ -154,25 +180,114 @@ storyForm.addEventListener("submit", (event) => {
 
 const renderList = (storyList) => {
   storyUltContainer.textContent = "";
-  console.log("storyList", storyList);
   storyList.forEach((element) => {
-    createTableRow(element); // Create table row
+    createStoryRow(element); // Create story list
   });
 };
 
-const createTableRow = (element) => {
+const createStoryRow = (element) => {
+  // Create List
   const list = document.createElement("li");
   list.className = "story-li";
+
+  // Create article
   const listArticle = document.createElement("article");
   listArticle.className = "story-list-article";
+
+  // Create article text container
+  const listArticleText = document.createElement("div");
+  listArticleText.className = "story-list-article-text";
+
+  // Create article title
   const articleTitle = document.createElement("h2");
   articleTitle.className = "article-title";
   articleTitle.textContent = element.title;
+
+  // Create article story
   const articleText = document.createElement("p");
   articleText.className = "article-text";
   articleText.textContent = element.story;
-  listArticle.appendChild(articleTitle);
-  listArticle.appendChild(articleText);
+  // Create menu container
+  const menuContainer = document.createElement("div");
+  menuContainer.className = "menu-container";
+
+  const articleMoreOption = document.createElement("img");
+  articleMoreOption.className = "article-more-option";
+  articleMoreOption.src = "/images/icon/more-vertical.svg";
+
+  // Create dropdown menu
+  const dropdownMenu = document.createElement("div");
+  dropdownMenu.className = "dropdown-menu hide";
+
+  // Add menu items
+  const editOption = document.createElement("button");
+  editOption.className = "menu-item";
+  editOption.textContent = "Edit";
+
+  // Edit button click
+  editOption.addEventListener("click", () => {
+    storyTitleInput.value = element.title;
+    storyTextTextarea.value = element.story;
+    storyFormAddButton.textContent = "Edit";
+    storyTitleInput.dataset.originalId = element.id;
+    addNEwStory();
+  });
+
+  const deleteOption = document.createElement("button");
+  deleteOption.className = "menu-item";
+  deleteOption.textContent = "Delete";
+  deleteOption.addEventListener("click", () => {
+    // removeItem(element);
+    console.log("Delete clicked for:", element.title);
+    dropdownMenu.classList.add("hide");
+  });
+
+  dropdownMenu.appendChild(editOption);
+  dropdownMenu.appendChild(deleteOption);
+
+  // Toggle menu on icon click
+  articleMoreOption.addEventListener("click", (e) => {
+    e.stopPropagation(); // Prevent event bubbling
+
+    // Close all other open menus
+    document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+      if (menu !== dropdownMenu) {
+        menu.classList.add("hide");
+      }
+    });
+    // Toggle current menu
+    dropdownMenu.classList.toggle("hide");
+  });
+  menuContainer.appendChild(articleMoreOption);
+  menuContainer.appendChild(dropdownMenu);
+  listArticleText.appendChild(articleTitle);
+  listArticleText.appendChild(articleText);
+  listArticle.appendChild(listArticleText);
+  listArticle.appendChild(menuContainer);
   list.appendChild(listArticle);
   storyUltContainer.appendChild(list);
 };
+
+// Close dropdown menu when clicking outside
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".menu-container")) {
+    document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+      menu.classList.add("hide");
+    });
+  }
+});
+
+// Close dropdown on ESC key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+      menu.classList.add("hide");
+    });
+  }
+});
+
+// Delete story
+
+// const removeItem=(element)=>{
+// cont
+// }
